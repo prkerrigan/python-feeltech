@@ -91,10 +91,8 @@ class Channel:
         if self._i != 1:
             raise NotImplementedError("Sweep supported only on channel 1")
         self.stop_sweep()
-        self.frequency(freq_start)
-        self._ft.send("bs1")
-        self.frequency(freq_end)
-        self._ft.send("bs2")
+        self._ft.send("bb%d" % round(freq_start*100))
+        self._ft.send("be%d" % round(freq_end*100))
         self._ft.send("bt%d" % time)
         self._ft.send("bm%d" % type)
         self._ft.send("br1")
